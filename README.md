@@ -1,33 +1,27 @@
-# Tabular Data Analysis with Pandas
+# Note Management Desktop Application
 
-A data analysis toolkit and practical scripts demonstrating data cleaning, aggregation, exploratory data analysis (EDA), and metric computation using Pandas.
+A clean desktop application developed in Python to manage personal text notes, providing persistent storage, easy editing, and categorization.
 
 ## Features
 
-- CSV dataset ingestion and validation.
-- Data grouping, sorting, filtering, and summary metrics computation.
-- Clean, structured output for business and data insights.
+- Create, view, update, and delete text notes.
+- Persistent local storage handling for text files.
+- Desktop graphical user interface built with Python.
 
-## Technologies & Dependencies
+## Technologies
 
 - **Language:** Python 3.x
-- **Libraries:** [Pandas](https://pandas.pydata.org/)
+- **Core Modules:** File I/O (`os`, `io`, standard libraries), GUI Framework.
 
 ## Installation and Execution
 
-1. **Clone the repository:**
+1. **Clone this repository:**
    ```bash
-   git clone <repository-url>
-   cd analisis-pandas
+   git clone [https://github.com/jonathaniha/gestor-notas.git](https://github.com/jonathaniha/gestor-notas.git)
+   cd gestor-notas
    ```
 
-2. **Install dependencies:**
+2. **Run the application:**
    ```bash
-   pip install pandas
+   python AppNotas-Textos.py
    ```
-
-3. **Run the analysis:**
-   ```bash
-   python main.py
-   ```
-   > **Note:** Replace `main.py` with your script's actual file name if it differs.
