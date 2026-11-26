@@ -13,3 +13,5 @@ env/
 # Archivos de configuración de editores
 .vscode/
 .idea/
+
+notes_data/

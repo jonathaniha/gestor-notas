@@ -1,8 +1,11 @@
+# Autor: Jonathán Herrera Arellano | Version: 1.0.1
+
 from PyQt5.QtWidgets import (
     QApplication, QWidget, QPushButton, QLabel,
     QListWidget, QLineEdit, QTextEdit, QInputDialog,
-    QHBoxLayout, QVBoxLayout, QMessageBox
+    QHBoxLayout, QVBoxLayout, QMessageBox, QShortcut
 )
+from PyQt5.QtGui import QKeySequence
 import sys
 import os
 
@@ -64,7 +67,7 @@ app = QApplication(sys.argv)
 notes = load_notes()
 
 notes_win = QWidget()
-notes_win.setWindowTitle("Notas inteligentes")
+notes_win.setWindowTitle("Notas inteligentes (Zoom: Control +, - y 0)")
 notes_win.resize(900, 600)
 
 # Widgets
@@ -235,6 +238,33 @@ def search_by_tag():
     else:
         QMessageBox.information(notes_win, "Resultados", f"No hay notas con la etiqueta «{tag}».")
 
+nivel_zoom = 0
+
+def zoom_in():
+    global nivel_zoom
+
+    if nivel_zoom <= 24:
+        field_text.zoomIn(2)
+        nivel_zoom += 2
+        print(nivel_zoom)
+
+def zoom_out():
+    global nivel_zoom
+    if nivel_zoom >= -2:
+        field_text.zoomOut(2)
+        nivel_zoom -= 2
+        print(nivel_zoom)
+
+def reset_zoom():
+    global nivel_zoom
+    if nivel_zoom > 0:
+        field_text.zoomOut(nivel_zoom)
+    elif nivel_zoom < 0:
+        field_text.zoomIn(abs(nivel_zoom))
+    else:
+        print("Zoom already 0")
+    nivel_zoom = 0
+
 
 # ── Eventos ───────────────────────────────────────────────────────────────────
 
@@ -247,8 +277,19 @@ button_tag_del.clicked.connect(remove_tag)
 button_tag_search.clicked.connect(search_by_tag)
 
 
+atajo_zoom_in = QShortcut(QKeySequence.ZoomIn, field_text)
+atajo_zoom_in.activated.connect(zoom_in)
+
+atajo_zoom_out = QShortcut(QKeySequence.ZoomOut, field_text)
+atajo_zoom_out.activated.connect(zoom_out)
+
+atajo_reset_zoom = QShortcut(QKeySequence("Ctrl+0"), field_text)
+atajo_reset_zoom.activated.connect(reset_zoom)
+
+
 # ── Inicio ────────────────────────────────────────────────────────────────────
 
+field_text.zoomIn(2)
 # Poblar la lista con las notas cargadas desde disco
 for note in notes:
     list_notes.addItem(note[0])
